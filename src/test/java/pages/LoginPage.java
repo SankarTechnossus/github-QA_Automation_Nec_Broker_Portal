@@ -10,7 +10,6 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    // Locators
     private final By txtUsername = By.id("username");
     private final By txtPassword = By.id("password");
     private final By btnLogin = By.xpath("//button[contains(text(),'Login')]");
@@ -27,7 +26,16 @@ public class LoginPage extends BasePage {
         click(btnLogin);
     }
 
-    public void loginToApplication(String username, String password) {
+    public void LoginIntoApplication(String username, String password) {
+        enterUsername(username);
+        enterPassword(password);
+        clickLogin();
+    }
+
+    // Complete Login Method
+    public void launchApplicationAndLogin(String url, String username, String password) {
+
+        driver.get(url);
 
         enterUsername(username);
         enterPassword(password);
