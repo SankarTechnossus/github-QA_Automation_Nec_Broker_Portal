@@ -10,4 +10,10 @@
 </classes>
 
 </test>
+
+    <listeners>
+        <listener class-name="listeners.ExtentReportListener"/>
+    </listeners>
+
         </suite>
+
