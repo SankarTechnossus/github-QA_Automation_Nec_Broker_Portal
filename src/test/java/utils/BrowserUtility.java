@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class BrowserUtility {
     private static final Logger logger = LogManager.getLogger(BrowserUtility.class);
@@ -22,6 +23,13 @@ public final class BrowserUtility {
             throw new RuntimeException("Failed to click on element using JS: " + elementName, e);
         }
     }
+    public class RandomUtils {
+
+        public static String getRandomNumber(int min, int max) {
+            return String.valueOf(ThreadLocalRandom.current().nextInt(min, max + 1));
+        }
+    }
+
     public static void scrollToElement(WebDriver driver, WebElement element, String elementName) {
         int attempts = 0;
         while (attempts < TestConstants.STALE_EXCEPTION_RETRY_ATTEMPTS_COUNT) {

@@ -16,6 +16,14 @@ public class BasePage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
+    public void pause(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Pause interrupted: " + e.getMessage());
+        }
+    }
 
     // Wait until element is visible
     public WebElement waitForVisibility(By locator) {

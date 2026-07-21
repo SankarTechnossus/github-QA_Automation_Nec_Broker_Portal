@@ -2,7 +2,7 @@
   "data": [
     {
       "NFW_URL": "https://mobileidwebqanfw-phase2.azurewebsites.net",
-      "NFR_URL": "https://mobileidwebqanfr-phase2.azurewebsites.net/#/logout",
+      "NFR_URL": "https://mobileidwebqanfr-phase2.azurewebsites.net",
       "sankarUsername": "sankar",
       "sankarPassword": "sankar",
       "Searchhistoryhours": "200",

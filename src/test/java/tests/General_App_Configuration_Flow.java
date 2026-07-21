@@ -3,8 +3,12 @@ package tests;
 import base.BasePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import listeners.ExtentReportListener;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -13,10 +17,14 @@ import org.testng.annotations.Test;
 import pages.DashboardPage;
 import pages.GeneralPage;
 import pages.LoginPage;
+import utils.BrowserUtility;
 import utils.DriverManager;
 import utils.JsonDataReader;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Listeners(ExtentReportListener.class)
 public class General_App_Configuration_Flow {
@@ -31,58 +39,85 @@ public class General_App_Configuration_Flow {
     @BeforeMethod
     public void setupBrowser() {
 
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
+//        DriverManager.setDriver(driver);
+//        driver.manage().window().maximize();
+
         WebDriverManager.chromedriver().setup();
 
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+
+        // Open Chrome in Guest mode
+        options.addArguments("--guest");
+
+        // Disable Password Manager
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+
+        options.setExperimentalOption("prefs", prefs);
+
+        // Create ChromeDriver
+        driver = new ChromeDriver(options);
         DriverManager.setDriver(driver);
 
         driver.manage().window().maximize();
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         basePage = new BasePage(driver);
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         generalPage = new GeneralPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        // Open application
-
-
-        String NFW_URL = JsonDataReader.get(0,"NFW_URL");
-        String userName = JsonDataReader.get(0,"sankarUsername");
-        String password = JsonDataReader.get(0,"sankarPassword");
-        String Searchhistoryhours = JsonDataReader.get(0, "Searchhistoryhours");
-        String Similarityscore = JsonDataReader.get(0, "Similarityscore");
-
-
-        driver.get(NFW_URL);
-        loginPage.LoginIntoApplication(userName, password);
-        loginPage.clickSignIn();
-        dashboardPage.waitForLogoToBeVisible();
 
     }
 
     @Test(description = "Update General Configuration")
     public void updateGeneralConfiguration() {
 
+        String NFW_URL = JsonDataReader.get(0,"NFW_URL");
+        String userName = JsonDataReader.get(0,"sankarUsername");
+        String password = JsonDataReader.get(0,"sankarPassword");
+        String searchHistoryHours = BrowserUtility.RandomUtils.getRandomNumber(1, 200);
+        String similarityScore = BrowserUtility.RandomUtils.getRandomNumber(1, 200);
 
 
-        ExtentReportListener.getExtentTest().info("Updating Search History Hours");
+        driver.get(NFW_URL);
+        ExtentReportListener.getExtentTest().info("Opened NFW application URL.");
 
-        dashboardPage.clickGeneral();
+        loginPage.LoginIntoApplication(userName, password);
+        ExtentReportListener.getExtentTest().info("Entered username and password.");
 
-        generalPage.enterSearchHistoryHours("200");
+        loginPage.clickSignIn();
+        ExtentReportListener.getExtentTest().info("Clicked on Sign In button.");
+
+        generalPage.clickGeneral();
+        ExtentReportListener.getExtentTest().info("Navigated to General configuration page.");
+
+        generalPage.enterSearchHistoryHours(searchHistoryHours);
+        ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + searchHistoryHours);
+
         generalPage.saveSearchHistoryHours();
+        ExtentReportListener.getExtentTest().pass("Search History Hours updated successfully.");
 
-        generalPage.enterSimilarityScore("20");
+        generalPage.enterSimilarityScore(similarityScore);
+        ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + similarityScore);
+
         generalPage.saveSimilarityScore();
+        ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
 
-        ExtentReportListener.getExtentTest().info("Updating Similarity Score Label");
-        ExtentReportListener.getExtentTest().pass("General Configuration updated successfully.");
+        generalPage.toggleConfiguration("Pick Photo From Device");
+
+        generalPage.toggleConfiguration("Declaration Page");
+
+        generalPage.toggleConfiguration("Display First Name and Last Name");
+
     }
 
     @AfterMethod
     public void tearDown() {
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
     }
 }

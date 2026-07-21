@@ -21,6 +21,7 @@ public class LoginPage extends BasePage {
 
     public void clickSignIn() {
         driver.findElement(signInBtn).click();
+        pause(3000);
     }
 
     public void enterPassword(String password) {
@@ -34,6 +35,7 @@ public class LoginPage extends BasePage {
     public void LoginIntoApplication(String username, String password) {
         enterUsername(username);
         enterPassword(password);
+        pause(3000);
     }
 
 

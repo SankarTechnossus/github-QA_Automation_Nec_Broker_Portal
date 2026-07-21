@@ -18,7 +18,9 @@ public class DashboardPage extends BasePage {
     private final By menuButton =
             By.xpath("//mat-icon[text()='menu']");
 
-    private By logo = By.cssSelector("div.logo img[src='assets/logo/logo.svg']");
+    private By logo = By.xpath("//div[@class='logo']//img");
+
+//    private By logo = By.cssSelector("div.logo img[src='assets/logo/logo.svg']");
 
     public void waitForLogoToBeVisible() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -26,11 +28,11 @@ public class DashboardPage extends BasePage {
     }
 
     // Locator
-    private By generalLink = By.linkText("General");
+    private By okButton = By.xpath("//button[.//span[text()='OK'] or text()='OK']");
 
-    // Method
-    public void clickGeneral() {
-        driver.findElement(generalLink).click();
+    public void clickPasswordPopupOK() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
     }
 
     // General Menu
@@ -41,11 +43,4 @@ public class DashboardPage extends BasePage {
         click(menuButton);
     }
 
-
-    public void navigateToGeneral() {
-
-        openMenu();
-        clickGeneral();
-
-    }
 }
