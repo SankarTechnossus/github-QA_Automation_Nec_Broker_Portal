@@ -13,9 +13,14 @@ public class LoginPage extends BasePage {
     private final By txtUsername = By.id("username");
     private final By txtPassword = By.id("password");
     private final By btnLogin = By.xpath("//button[contains(text(),'Login')]");
+    private By signInBtn = By.id("kc-login");
 
     public void enterUsername(String username) {
         type(txtUsername, username);
+    }
+
+    public void clickSignIn() {
+        driver.findElement(signInBtn).click();
     }
 
     public void enterPassword(String password) {
@@ -29,8 +34,8 @@ public class LoginPage extends BasePage {
     public void LoginIntoApplication(String username, String password) {
         enterUsername(username);
         enterPassword(password);
-        clickLogin();
     }
+
 
     // Complete Login Method
     public void launchApplicationAndLogin(String url, String username, String password) {
@@ -42,4 +47,5 @@ public class LoginPage extends BasePage {
         clickLogin();
 
     }
+
 }

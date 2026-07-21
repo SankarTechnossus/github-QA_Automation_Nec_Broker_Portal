@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "NFW_URL": "https://mobileidwebqanfw-phase2.azurewebsites.net",
+      "NFR_URL": "https://mobileidwebqanfr-phase2.azurewebsites.net/#/logout",
+      "sankarUsername": "sankar",
+      "sankarPassword": "sankar",
+      "Searchhistoryhours": "200",
+      "Similarityscore": "20"
+    }
+
+
+  ]
+}

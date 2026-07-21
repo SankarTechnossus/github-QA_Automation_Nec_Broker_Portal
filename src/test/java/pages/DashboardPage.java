@@ -3,6 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import base.BasePage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class DashboardPage extends BasePage {
 
@@ -14,6 +18,21 @@ public class DashboardPage extends BasePage {
     private final By menuButton =
             By.xpath("//mat-icon[text()='menu']");
 
+    private By logo = By.cssSelector("div.logo img[src='assets/logo/logo.svg']");
+
+    public void waitForLogoToBeVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(logo));
+    }
+
+    // Locator
+    private By generalLink = By.linkText("General");
+
+    // Method
+    public void clickGeneral() {
+        driver.findElement(generalLink).click();
+    }
+
     // General Menu
     private final By generalMenu =
             By.xpath("//a[text()='General']");
@@ -22,9 +41,6 @@ public class DashboardPage extends BasePage {
         click(menuButton);
     }
 
-    public void clickGeneral() {
-        click(generalMenu);
-    }
 
     public void navigateToGeneral() {
 

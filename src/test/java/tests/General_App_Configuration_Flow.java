@@ -14,6 +14,7 @@ import pages.DashboardPage;
 import pages.GeneralPage;
 import pages.LoginPage;
 import utils.DriverManager;
+import utils.JsonDataReader;
 
 import java.time.Duration;
 
@@ -43,19 +44,32 @@ public class General_App_Configuration_Flow {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         generalPage = new GeneralPage(driver);
-
+        LoginPage loginPage = new LoginPage(driver);
         // Open application
-        driver.get("https://mobileidwebqanfw-phase2.azurewebsites.net");
 
-        // Login
-        loginPage.LoginIntoApplication("Sankar", "Sankar");
+
+        String NFW_URL = JsonDataReader.get(0,"NFW_URL");
+        String userName = JsonDataReader.get(0,"sankarUsername");
+        String password = JsonDataReader.get(0,"sankarPassword");
+        String Searchhistoryhours = JsonDataReader.get(0, "Searchhistoryhours");
+        String Similarityscore = JsonDataReader.get(0, "Similarityscore");
+
+
+        driver.get(NFW_URL);
+        loginPage.LoginIntoApplication(userName, password);
+        loginPage.clickSignIn();
+        dashboardPage.waitForLogoToBeVisible();
 
     }
 
     @Test(description = "Update General Configuration")
     public void updateGeneralConfiguration() {
 
+
+
         ExtentReportListener.getExtentTest().info("Updating Search History Hours");
+
+        dashboardPage.clickGeneral();
 
         generalPage.enterSearchHistoryHours("200");
         generalPage.saveSearchHistoryHours();
