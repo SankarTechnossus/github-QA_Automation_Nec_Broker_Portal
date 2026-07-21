@@ -39,11 +39,6 @@ public class General_App_Configuration_Flow {
     @BeforeMethod
     public void setupBrowser() {
 
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-//        DriverManager.setDriver(driver);
-//        driver.manage().window().maximize();
-
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
@@ -82,6 +77,10 @@ public class General_App_Configuration_Flow {
         String password = JsonDataReader.get(0,"sankarPassword");
         String searchHistoryHours = BrowserUtility.RandomUtils.getRandomNumber(1, 200);
         String similarityScore = BrowserUtility.RandomUtils.getRandomNumber(1, 200);
+        String Searchhistoryhours = JsonDataReader.get(0,"Searchhistoryhours");
+        String Similarityscore = JsonDataReader.get(0,"Similarityscore");
+        String SearchhistoryhoursNegativecase = JsonDataReader.get(0,"SearchhistoryhoursNegativecase");
+        String SimilarityscoreNegativecase = JsonDataReader.get(0,"SimilarityscoreNegativecase");
 
 
         driver.get(NFW_URL);
@@ -113,6 +112,31 @@ public class General_App_Configuration_Flow {
         generalPage.toggleConfiguration("Declaration Page");
 
         generalPage.toggleConfiguration("Display First Name and Last Name");
+
+        generalPage.enterSearchHistoryHours(Searchhistoryhours);
+        ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + Searchhistoryhours);
+
+        generalPage.enterSimilarityScore(Similarityscore);
+        ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + Similarityscore);
+
+        generalPage.saveSimilarityScore();
+        ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
+
+        generalPage.enterSearchHistoryHours(SearchhistoryhoursNegativecase);
+        ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + Searchhistoryhours);
+
+        generalPage.enterSimilarityScore(SimilarityscoreNegativecase);
+        ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + Similarityscore);
+
+        generalPage.saveSimilarityScore();
+        ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
+
+        generalPage.toggleConfiguration("Pick Photo From Device");
+
+        generalPage.toggleConfiguration("Declaration Page");
+
+        generalPage.toggleConfiguration("Display First Name and Last Name");
+
 
     }
 

@@ -51,6 +51,7 @@ public class GeneralPage extends BasePage {
                 ExpectedConditions.elementToBeClickable(slider));
 
         sliderElement.click();
+        pause(5000);
 
         ExtentReportListener.getExtentTest().pass(configurationName + " status changed successfully.");
     }
@@ -68,6 +69,7 @@ public class GeneralPage extends BasePage {
         txt.sendKeys(Keys.TAB);             // Trigger Angular change event
         pause(5000);
     }
+
 
     public void saveSearchHistoryHours() {
 
