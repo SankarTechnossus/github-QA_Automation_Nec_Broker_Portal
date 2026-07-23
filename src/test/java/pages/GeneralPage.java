@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Objects;
 
 public class GeneralPage extends BasePage {
 
@@ -23,7 +24,63 @@ public class GeneralPage extends BasePage {
     private final By btnHoursSave = By.xpath("//span[text()='Search History Hours Limit']/ancestor::div[contains(@class,'search-history-section')]//button[contains(@class,'save-btn')]");
     private final By txtSimilarity = By.xpath("//span[text()='Similarity Score Label']/ancestor::div[contains(@class,'search-history-section')]//input");
     private final By btnSimilaritySave = By.xpath("//span[text()='Similarity Score Label']/ancestor::div[contains(@class,'search-history-section')]//button[contains(@class,'save-btn')]");
+    By lblReasonsHeading = By.xpath("//h3[text()='Reasons']");
+    By lblReasonsDescription = By.xpath("//h3[text()='Reasons']/following-sibling::p");
+    By lblSimilarityScoreLabel = By.xpath("//span[text()='Similarity Score Label']");
+    By lblSimilarityScoreHint = By.xpath("//span[text()='Similarity Score Label']/following-sibling::p");
 
+
+    public boolean VerifySimilarityScoreHint() {
+        boolean result = false;
+        waitForPresence(lblSimilarityScoreHint);
+
+        String text = driver.findElement(lblSimilarityScoreHint).getText();
+
+        if (Objects.equals(text, "Set similarity label for search results (maximum 16 characters)")) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public boolean VerifySimilarityScoreLabel() {
+        boolean result = false;
+        waitForPresence(lblSimilarityScoreLabel);
+
+        String text = driver.findElement(lblSimilarityScoreLabel).getText();
+
+        if (Objects.equals(text, "Similarity Score Label")) {
+            result = true;
+        }
+
+        return result;
+    }
+    public boolean VerifyReasonsDescription() {
+        boolean result = false;
+        waitForPresence(lblReasonsDescription);
+
+        String text = driver.findElement(lblReasonsDescription).getText();
+
+        if (Objects.equals(text, "\"Reason for Processing\" explains why face search action was taken, helping users understand decision-making clearly.")) {
+            result = true;
+        }
+
+        return result;
+    }
+
+
+    public boolean VerifyReasonsHeading() {
+        boolean result = false;
+        waitForPresence(lblReasonsHeading);
+
+        String text = driver.findElement(lblReasonsHeading).getText();
+
+        if (Objects.equals(text, "Reasons")) {
+            result = true;
+        }
+
+        return result;
+    }
     public void toggleConfiguration(String configurationName) {
 
         By checkbox = By.xpath(
@@ -109,6 +166,8 @@ public class GeneralPage extends BasePage {
 
         pause(3000);
     }
+
+
 
     private final By txtSearchHistoryHours =
             By.xpath("//span[text()='Search History Hours Limit']/ancestor::div[contains(@class,'search-history-section')]//input");

@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -90,58 +91,75 @@ public class General_App_Configuration_Flow {
         ExtentReportListener.getExtentTest().info("Entered username and password.");
 
         loginPage.clickSignIn();
+        Assert.assertTrue(generalPage.VerifyReasonsDescription());
         ExtentReportListener.getExtentTest().info("Clicked on Sign In button.");
 
         generalPage.clickGeneral();
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Navigated to General configuration page.");
 
         generalPage.enterSearchHistoryHours(searchHistoryHours);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + searchHistoryHours);
 
         generalPage.saveSearchHistoryHours();
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().pass("Search History Hours updated successfully.");
 
         generalPage.enterSimilarityScore(similarityScore);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
         ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + similarityScore);
 
         generalPage.saveSimilarityScore();
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
         ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
 
         generalPage.toggleConfiguration("Pick Photo From Device");
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
         generalPage.toggleConfiguration("Declaration Page");
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
         generalPage.toggleConfiguration("Display First Name and Last Name");
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
         generalPage.enterSearchHistoryHours(Searchhistoryhours);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + Searchhistoryhours);
 
         generalPage.enterSimilarityScore(Similarityscore);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + Similarityscore);
 
         generalPage.saveSimilarityScore();
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
 
         generalPage.enterSearchHistoryHours(SearchhistoryhoursNegativecase);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Entered Search History Hours: " + Searchhistoryhours);
 
         generalPage.enterSimilarityScore(SimilarityscoreNegativecase);
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().info("Entered Similarity Score: " + Similarityscore);
 
         generalPage.saveSimilarityScore();
+        Assert.assertTrue(generalPage.VerifySimilarityScoreLabel());
         ExtentReportListener.getExtentTest().pass("Similarity Score updated successfully.");
 
         generalPage.toggleConfiguration("Pick Photo From Device");
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
         generalPage.toggleConfiguration("Declaration Page");
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
         generalPage.toggleConfiguration("Display First Name and Last Name");
-
+        Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
 
     }
 
     @AfterMethod
     public void tearDown() {
-//        DriverManager.quitDriver();
+        DriverManager.quitDriver();
     }
 }
