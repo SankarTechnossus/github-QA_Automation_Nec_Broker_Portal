@@ -155,7 +155,6 @@ public class General_App_Configuration_Flow {
 
         generalPage.toggleConfiguration("Display First Name and Last Name");
         Assert.assertTrue(generalPage.VerifySimilarityScoreHint());
-
     }
 
     @AfterMethod
